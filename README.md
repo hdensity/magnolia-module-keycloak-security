@@ -6,10 +6,7 @@
 magnolia-module-keycloak-security
 ================================
 
-[Keycloak](http://www.keycloak.org/) SSO/IAM integration for [Magnolia](http://www.magnolia-cms.com) 5.5, 5.6
-
-This module delegates authentication - in addition to Magnolias builtin authentication mechanisms - to Keycloak.
-
+[Keycloak](http://www.keycloak.org/) SSO/IAM integration for [Magnolia](http://www.magnolia-cms.com) 6.1
 
 This module delegates authentication - in addition to Magnolias builtin authentication mechanisms - to Keycloak.
 
@@ -26,17 +23,10 @@ Installation
 magnolia {
   info.magnolia.jaas.sp.jcr.JCRAuthenticationModule optional realm=system;
 
-  org.sevensource.magnolia.keycloak.security.KeycloakLoginModuleAdapter requisite realm=external skip_on_previous_success=true;
+  KeycloakLoginModuleAdapter requisite realm=external skip_on_previous_success=true;
   info.magnolia.jaas.sp.jcr.JCRAuthorizationModule required;
 };
 ```
-
-* for further JAAS configuration options, see
-  - http://docs.oracle.com/javase/8/docs/api/javax/security/auth/login/Configuration.html
-  - https://documentation.magnolia-cms.com/display/DOCS/NTLM+Connector+module
-  - https://documentation.magnolia-cms.com/display/DOCS/LDAP+Connector+module
-  - https://documentation.magnolia-cms.com/display/DOCS/CAS+module
-  - http://docs.oracle.com/javase/8/docs/technotes/guides/security/jaas/JAASRefGuide.html
 
 Configuration
 =============

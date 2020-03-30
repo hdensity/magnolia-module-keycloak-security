@@ -2,55 +2,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.sevensource.magnolia</groupId>
+	<groupId>it.schm.magnolia</groupId>
 	<artifactId>magnolia-module-keycloak-security</artifactId>
-	<version>1.1.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Magnolia Keycloak Security</name>
 	<description>Magnolia Keycloak JAAS Authentication module</description>
-	<url>http://www.github.com/sevensource/magnolia-module-keycloak-security</url>
-
-
-	<properties>
-		<javaVersion>1.8</javaVersion>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<magnoliaVersion>5.6</magnoliaVersion>
-		<keycloak.version>3.2.0.Final</keycloak.version>
-		<jboss.logging.version>3.3.1.Final</jboss.logging.version>
-	</properties>
-
-	<inceptionYear>2017</inceptionYear>
-
-	<organization>
-		<name>SevenSource, pgaschuetz</name>
-		<url>http://www.github.com/sevensource</url>
-	</organization>
-
-	<developers>
-		<developer>
-			<name>pgaschuetz</name>
-			<organizationUrl>http://github.com/pgaschuetz</organizationUrl>
-		</developer>
-	</developers>
-
-	<issueManagement>
-		<url>https://github.com/sevensource/magnolia-module-keycloak-security/issues</url>
-		<system>GitHub Issues</system>
-	</issueManagement>
-
-	<scm>
-		<connection>scm:git:git://github.com/sevensource/magnolia-module-keycloak-security.git</connection>
-		<developerConnection>scm:git:git@github.com:sevensource/magnolia-module-keycloak-security.git</developerConnection>
-		<url>http://github.com/sevensource/magnolia-module-keycloak-security/tree/master</url>
-	</scm>
+	<url>https://github.com/hdensity/magnolia-module-keycloak-security</url>
 
 	<licenses>
 		<license>
-			<name>GNU General Public License (GPL)</name>
-			<url>http://www.gnu.org/licenses/gpl.txt</url>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
 		</license>
 	</licenses>
+
+	<developers>
+		<developer>
+			<name>Sam Schmit</name>
+			<email>sam@schm.it</email>
+			<organization>HDensity</organization>
+			<organizationUrl>https://github.com/hdensity</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/hdensity/magnolia-module-keycloak-security.git</connection>
+		<developerConnection>scm:git:git@github.com:hdensity/magnolia-module-keycloak-security.git</developerConnection>
+		<url>http://github.com/hdensity/magnolia-module-keycloak-security/tree/master</url>
+	</scm>
+
+	<issueManagement>
+		<url>https://github.com/hdensity/magnolia-module-keycloak-security/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
 
 	<distributionManagement>
 		<snapshotRepository>
@@ -73,6 +59,53 @@
 		</repository>
 	</repositories>
 
+	<properties>
+		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<jacoco.reportPath>${project.basedir}/target/jacoco/jacoco.exec</jacoco.reportPath>
+
+		<version.magnolia>6.1.4</version.magnolia>
+		<version.keycloak>9.0.2</version.keycloak>
+		<version.jboss.logging>3.4.1.Final</version.jboss.logging>
+
+		<version.junit>5.6.0</version.junit>
+		<version.mockito>3.3.0</version.mockito>
+		<version.assertj>3.15.0</version.assertj>
+		<version.equalsverifier>3.1.13</version.equalsverifier>
+
+		<version.jacoco>0.8.5</version.jacoco>
+
+		<version.maven.compiler.plugin>3.8.1</version.maven.compiler.plugin>
+		<version.maven.surefire.plugin>2.22.2</version.maven.surefire.plugin>
+		<version.maven.source.plugin>3.2.1</version.maven.source.plugin>
+		<version.maven.javadoc.plugin>3.2.0</version.maven.javadoc.plugin>
+		<version.maven.gpg.plugin>1.6</version.maven.gpg.plugin>
+		<version.maven.shade.plugin>3.2.2</version.maven.shade.plugin>
+		<version.coveralls.plugin>4.3.0</version.coveralls.plugin>
+		<version.nexus.plugin>1.6.8</version.nexus.plugin>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>info.magnolia.boms</groupId>
+				<artifactId>magnolia-external-dependencies</artifactId>
+				<version>${version.magnolia}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>info.magnolia</groupId>
+				<artifactId>magnolia-project</artifactId>
+				<version>${version.magnolia}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>info.magnolia</groupId>
@@ -82,156 +115,112 @@
 		<dependency>
 			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-adapter-core</artifactId>
-			<version>${keycloak.version}</version>
+			<version>${version.keycloak}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-core</artifactId>
-			<version>${keycloak.version}</version>
+			<version>${version.keycloak}</version>
 		</dependency>
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
-            <version>${jboss.logging.version}</version>
+            <version>${version.jboss.logging}</version>
         </dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${version.junit}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${version.mockito}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>${version.mockito}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${version.assertj}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>nl.jqno.equalsverifier</groupId>
+			<artifactId>equalsverifier</artifactId>
+			<version>${version.equalsverifier}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>org.jacoco.agent</artifactId>
+			<version>${version.jacoco}</version>
+			<scope>test</scope>
+			<classifier>runtime</classifier>
+		</dependency>
 	</dependencies>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>info.magnolia.boms</groupId>
-				<artifactId>magnolia-external-dependencies</artifactId>
-				<version>${magnoliaVersion}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>info.magnolia</groupId>
-				<artifactId>magnolia-project</artifactId>
-				<version>${magnoliaVersion}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-
 		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.6.1</version>
-					<configuration>
-						<source>${javaVersion}</source>
-						<target>${javaVersion}</target>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>external.atlassian.jgitflow</groupId>
-					<artifactId>jgitflow-maven-plugin</artifactId>
-					<version>1.0-m5.1</version>
-					<configuration>
-						<arguments>-Dmaven.install.skip=true</arguments>
-						<flowInitContext>
-							<versionTagPrefix>v</versionTagPrefix>
-						</flowInitContext>
-						<enableSshAgent>true</enableSshAgent>
-						<noDeploy>true</noDeploy>
-						<pushReleases>true</pushReleases>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.20</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>3.0.1</version>
-					<executions>
-						<execution>
-							<id>attach-sources</id>
-							<goals>
-								<goal>jar-no-fork</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.10.4</version>
-					<executions>
-						<execution>
-							<id>attach-javadocs</id>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-gpg-plugin</artifactId>
-					<version>1.6</version>
-					<executions>
-						<execution>
-							<id>sign-artifacts</id>
-							<phase>verify</phase>
-							<goals>
-								<goal>sign</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-
-				<plugin>
-					<groupId>org.sonatype.plugins</groupId>
-					<artifactId>nexus-staging-maven-plugin</artifactId>
-					<version>1.6.8</version>
-					<extensions>true</extensions>
+					<version>${version.maven.surefire.plugin}</version>
 					<configuration>
-						<serverId>ossrh</serverId>
-						<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-						<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						<redirectTestOutputToFile>true</redirectTestOutputToFile>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.maven.compiler.plugin}</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${version.jacoco}</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${jacoco.reportPath}</destFile>
+						</configuration>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${jacoco.reportPath}</dataFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 
 		<resources>
 			<resource>
@@ -249,4 +238,78 @@
 			</resource>
 		</resources>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eluder.coveralls</groupId>
+						<artifactId>coveralls-maven-plugin</artifactId>
+						<version>${version.coveralls.plugin}</version>
+						<configuration>
+							<jacocoReports>${project.basedir}/target/site/jacoco/jacoco.xml</jacocoReports>
+						</configuration>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>${version.maven.source.plugin}</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>${version.maven.javadoc.plugin}</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${version.maven.gpg.plugin}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>package</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>${version.nexus.plugin}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
