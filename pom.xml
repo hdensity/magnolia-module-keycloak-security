@@ -66,7 +66,7 @@
 
 		<jacoco.reportPath>${project.basedir}/target/jacoco/jacoco.exec</jacoco.reportPath>
 
-		<version.magnolia>6.1.4</version.magnolia>
+		<version.magnolia>6.2</version.magnolia>
 		<version.keycloak>9.0.2</version.keycloak>
 		<version.jboss.logging>3.4.1.Final</version.jboss.logging>
 
@@ -120,6 +120,11 @@
 		<dependency>
 			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-core</artifactId>
+			<version>${version.keycloak}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-admin-client</artifactId>
 			<version>${version.keycloak}</version>
 		</dependency>
         <dependency>

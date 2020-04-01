@@ -5,6 +5,7 @@ import info.magnolia.cms.security.auth.Entity;
 import info.magnolia.cms.security.auth.GroupList;
 import info.magnolia.cms.security.auth.RoleList;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 public class KeycloakUser extends ExternalUser {
@@ -14,10 +15,15 @@ public class KeycloakUser extends ExternalUser {
     public static final String ID_PROPERTY = "id";
     public static final String TOKEN_PROPERTY = "token";
 
-    protected KeycloakUser(GroupList groupList, RoleList roleList) {
-        super(new HashMap<>(), groupList, roleList);
-    }
+    private final GroupList allGroups;
+    private final RoleList allRoles;
 
+    protected KeycloakUser(GroupList groups, GroupList allGroups, RoleList roles, RoleList allRoles) {
+        super(new HashMap<>(), groups, roles);
+
+        this.allGroups = allGroups;
+        this.allRoles = allRoles;
+    }
 
     public void setLanguage(String language) {
         setProperty(Entity.LANGUAGE, language);
@@ -50,6 +56,16 @@ public class KeycloakUser extends ExternalUser {
     @Override
     public String getIdentifier() {
         return getProperty(ID_PROPERTY);
+    }
+
+    @Override
+    public Collection<String> getAllGroups() {
+        return allGroups.getList();
+    }
+
+    @Override
+    public Collection<String> getAllRoles() {
+        return allRoles.getList();
     }
 
 }

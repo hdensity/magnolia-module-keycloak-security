@@ -1,20 +1,20 @@
-[![GitHub Tag](https://img.shields.io/github/tag/sevensource/magnolia-module-keycloak-security.svg?maxAge=3600)](https://github.com/sevensource/magnolia-module-keycloak-security/tags)
-[![Maven Central](https://img.shields.io/maven-central/v/org.sevensource.magnolia/magnolia-module-keycloak-security.svg?maxAge=3600)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.sevensource.magnolia%22%20AND%20a%3A%22magnolia-module-keycloak-security%22)
-[![License](https://img.shields.io/github/license/sevensource/magnolia-module-keycloak-security.svg)](https://github.com/sevensource/magnolia-module-keycloak-security/blob/master/LICENSE)
+[![GitHub](https://img.shields.io/github/license/hdensity/magnolia-module-keycloak-security)](https://github.com/hdensity/magnolia-module-keycloak-security/blob/master/LICENSE)
+[![Build Status](https://travis-ci.com/hdensity/magnolia-module-keycloak-security.svg?branch=master)](https://travis-ci.com/hdensity/magnolia-module-keycloak-security)
+[![Coverage Status](https://coveralls.io/repos/github/hdensity/magnolia-module-keycloak-security/badge.svg?branch=master)](https://coveralls.io/github/hdensity/magnolia-module-keycloak-security?branch=master)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/hdensity/magnolia-module-keycloak-security)](https://codeclimate.com/github/hdensity/magnolia-module-keycloak-security)
+[![Code Climate issues](https://img.shields.io/codeclimate/issues/hdensity/magnolia-module-keycloak-security)](https://codeclimate.com/github/hdensity/magnolia-module-keycloak-security/issues)
+[![Active](http://img.shields.io/badge/Status-Active-green.svg)](https://github.com/hdensity/magnolia-module-keycloak-security)
 
+# magnolia-module-keycloak-security
 
-magnolia-module-keycloak-security
-================================
-
-[Keycloak](http://www.keycloak.org/) SSO/IAM integration for [Magnolia](http://www.magnolia-cms.com) 6.1
+[Keycloak](http://www.keycloak.org/) SSO/IAM integration for [Magnolia](http://www.magnolia-cms.com) 6.2
 
 This module delegates authentication - in addition to Magnolias builtin authentication mechanisms - to Keycloak.
 
-
 **Contributions welcome!**
 
-Installation
-=============
+# Installation
+
 * create a client in Keycloak with *Direct Access Grants* enabled
 * export the configuration in *Keycloak OIDC JSON* format from the *Installation* tab
 * save the configuration file into your projects classpath, i.e. `src/main/resources/keycloak.json`
@@ -23,13 +23,13 @@ Installation
 magnolia {
   info.magnolia.jaas.sp.jcr.JCRAuthenticationModule optional realm=system;
 
-  KeycloakLoginModuleAdapter requisite realm=external skip_on_previous_success=true;
+  it.schm.magnolia.keycloak.security.KeycloakLoginModuleAdapter requisite realm=external skip_on_previous_success=true;
   info.magnolia.jaas.sp.jcr.JCRAuthorizationModule required;
 };
 ```
 
-Configuration
-=============
+# Configuration
+
 All additional configuration is stored in Magnolias JCR.
 
 * login into magnolia using the `superuser` account

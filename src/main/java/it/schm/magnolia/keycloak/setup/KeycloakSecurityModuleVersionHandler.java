@@ -13,7 +13,7 @@ import info.magnolia.module.delta.OrderNodeAfterTask;
 import info.magnolia.module.delta.SetPropertyTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.repository.RepositoryConstants;
-import it.schm.magnolia.keycloak.security.DefaultRoleMapper;
+import it.schm.magnolia.keycloak.security.DefaultMapper;
 import it.schm.magnolia.keycloak.security.KeycloakUserManager;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class KeycloakSecurityModuleVersionHandler extends DefaultModuleVersionHa
 
     @Override
     protected List<Task> getExtraInstallTasks(InstallContext installContext) {
-        final Task createUserManager = new NodeExistsDelegateTask("Check existing external UserManager", USERMANAGERS_NODE + "/" + REALM_NAME, null,
+        Task createUserManager = new NodeExistsDelegateTask("Check existing external UserManager", USERMANAGERS_NODE + "/" + REALM_NAME, null,
                 new ArrayDelegateTask("Add Keycloak UserManager",
                         new CreateNodeTask("Create userManager node", USERMANAGERS_NODE, REALM_NAME, NodeTypes.ContentNode.NAME),
                         new SetPropertyTask(RepositoryConstants.CONFIG, EXTERNAL_USERMANAGER_NODE, "realmName", REALM_NAME),
@@ -37,15 +37,21 @@ public class KeycloakSecurityModuleVersionHandler extends DefaultModuleVersionHa
                         new OrderNodeAfterTask("Reorder userManager to correct position", EXTERNAL_USERMANAGER_NODE, SYSTEM_USERMANAGER)
                 ));
 
-        final ModuleConfigNodeBuilderTask task = new ModuleConfigNodeBuilderTask(
-                "Create RoleMapper configuration", "Create RoleMapper configuration", ErrorHandling.strict,
+        ModuleConfigNodeBuilderTask task = new ModuleConfigNodeBuilderTask(
+                "Create Keycloak security configuration", "Create Keycloak security configuration", ErrorHandling.strict,
                 Ops.addProperty("keycloakConfigFile", ""),
+                Ops.addProperty("groupClaimKey", ""),
                 Ops.addNode("roleMapper", NodeTypes.ContentNode.NAME).then(
-                        Ops.addProperty("class", DefaultRoleMapper.class.getName()),
-                        Ops.addProperty("mapUnmappedRolesAsIs", "true"),
+                        Ops.addProperty("class", DefaultMapper.class.getName()),
+                        Ops.addProperty("mapUnmappedAsIs", "true"),
                         Ops.addNode("mappings", NodeTypes.ContentNode.NAME).then(
                                 Ops.addProperty("mgnl-superuser", "superuser")
                         )
+                ),
+                Ops.addNode("groupMapper", NodeTypes.ContentNode.NAME).then(
+                        Ops.addProperty("class", DefaultMapper.class.getName()),
+                        Ops.addProperty("mapUnmappedAsIs", "true"),
+                        Ops.addNode("mappings", NodeTypes.ContentNode.NAME)
                 )
         );
 

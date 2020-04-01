@@ -2,12 +2,14 @@ package it.schm.magnolia.keycloak;
 
 import info.magnolia.module.ModuleLifecycle;
 import info.magnolia.module.ModuleLifecycleContext;
-import it.schm.magnolia.keycloak.security.RoleMapper;
+import it.schm.magnolia.keycloak.security.Mapper;
 
 public class KeycloakSecurityModule implements ModuleLifecycle {
 
-    private RoleMapper roleMapper;
     private String keycloakConfigFile;
+    private String groupClaimKey;
+    private Mapper roleMapper;
+    private Mapper groupMapper;
 
     @Override
     public void start(ModuleLifecycleContext moduleLifecycleContext) {
@@ -19,12 +21,20 @@ public class KeycloakSecurityModule implements ModuleLifecycle {
         // no-op
     }
 
-    public RoleMapper getRoleMapper() {
+    public Mapper getRoleMapper() {
         return roleMapper;
     }
 
-    public void setRoleMapper(RoleMapper roleMapper) {
+    public void setRoleMapper(Mapper roleMapper) {
         this.roleMapper = roleMapper;
+    }
+
+    public Mapper getGroupMapper() {
+        return groupMapper;
+    }
+
+    public void setGroupMapper(Mapper groupMapper) {
+        this.groupMapper = groupMapper;
     }
 
     public String getKeycloakConfigFile() {
@@ -33,6 +43,14 @@ public class KeycloakSecurityModule implements ModuleLifecycle {
 
     public void setKeycloakConfigFile(String keycloakConfigFile) {
         this.keycloakConfigFile = keycloakConfigFile;
+    }
+
+    public String getGroupClaimKey() {
+        return groupClaimKey;
+    }
+
+    public void setGroupClaimKey(String groupClaimKey) {
+        this.groupClaimKey = groupClaimKey;
     }
 
 }
